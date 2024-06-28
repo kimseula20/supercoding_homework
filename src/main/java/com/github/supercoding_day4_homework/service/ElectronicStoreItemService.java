@@ -4,6 +4,7 @@ import com.github.supercoding_day4_homework.repository.items.ElectronicStoreItem
 import com.github.supercoding_day4_homework.repository.items.ItemEntity;
 import com.github.supercoding_day4_homework.repository.storeSales.StoreSales;
 import com.github.supercoding_day4_homework.repository.storeSales.StoreSalesRepository;
+import com.github.supercoding_day4_homework.service.mapper.ItemMapper;
 import com.github.supercoding_day4_homework.web.dto.items.BuyOrder;
 import com.github.supercoding_day4_homework.web.dto.items.Item;
 import com.github.supercoding_day4_homework.web.dto.items.ItemBody;
@@ -25,7 +26,8 @@ public class ElectronicStoreItemService {
 
   public List<Item> findAllItem() {
     List<ItemEntity> itemEntities = electronicStoreItemRepository.findAllItems();
-    return itemEntities.stream().map(Item::new).collect(Collectors.toList());
+//    return itemEntities.stream().map(Item::new).collect(Collectors.toList());
+    return itemEntities.stream().map(ItemMapper.INSTANCE::itemEntityToItem).collect(Collectors.toList());
   }
 
   public Integer savaItem(ItemBody itemBody) {
@@ -37,14 +39,16 @@ public class ElectronicStoreItemService {
   public Item findItemById(String id) {
     Integer idInt = Integer.parseInt(id);
     ItemEntity itemEntity = electronicStoreItemRepository.findItemById(idInt);
-    Item item = new Item(itemEntity);
+//    Item item = new Item(itemEntity);
+    Item item = ItemMapper.INSTANCE.itemEntityToItem(itemEntity);
     return item;
   }
 
   public List<Item> findItemsByIds(List<String> ids) {
     List<ItemEntity> itemEntities = electronicStoreItemRepository.findAllItems();
     return itemEntities.stream()
-        .map(Item::new)
+//        .map(Item::new)
+        .map(ItemMapper.INSTANCE::itemEntityToItem)
         .filter((item -> ids.contains(item.getId())))
         .collect(Collectors.toList());
   }
@@ -62,7 +66,8 @@ public class ElectronicStoreItemService {
 
     ItemEntity itemEntityUpdated = electronicStoreItemRepository.updateItemEntity(idInt, itemEntity);
 
-    return new Item(itemEntityUpdated);
+//    return new Item(itemEntityUpdated);
+    return ItemMapper.INSTANCE.itemEntityToItem(itemEntityUpdated);
   }
 
   @Transactional(transactionManager = "tm1")

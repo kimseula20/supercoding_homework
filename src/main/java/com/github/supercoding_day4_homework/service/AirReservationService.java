@@ -11,6 +11,7 @@ import com.github.supercoding_day4_homework.repository.reservations.Reservation;
 import com.github.supercoding_day4_homework.repository.reservations.ReservationRepository;
 import com.github.supercoding_day4_homework.repository.users.UserEntity;
 import com.github.supercoding_day4_homework.repository.users.UserRepository;
+import com.github.supercoding_day4_homework.service.mapper.TicketMapper;
 import com.github.supercoding_day4_homework.web.dto.airline.PaymentsRequest;
 import com.github.supercoding_day4_homework.web.dto.airline.ReservationRequest;
 import com.github.supercoding_day4_homework.web.dto.airline.ReservationResult;
@@ -50,7 +51,8 @@ public class AirReservationService {
     List<AirlineTicket> airlineTickets
         = airlineTicketRepository.findAllAirlineTicketsWithPlaceAndTicketType(likePlace, ticketType);
 
-    List<Ticket> tickets = airlineTickets.stream().map(Ticket::new).collect(Collectors.toList());
+//    List<Ticket> tickets = airlineTickets.stream().map(Ticket::new).collect(Collectors.toList());
+    List<Ticket> tickets = airlineTickets.stream().map(TicketMapper.INSTANCE::airlineTicketToTicket).collect(Collectors.toList());
     return tickets;
   }
 
