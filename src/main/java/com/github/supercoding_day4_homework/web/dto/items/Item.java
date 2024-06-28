@@ -5,7 +5,6 @@ import com.github.supercoding_day4_homework.repository.items.ItemEntity;
 import java.util.Objects;
 
 public class Item {
-
   private String id;
   private String name;
   private String type;
