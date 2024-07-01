@@ -4,6 +4,7 @@ import com.github.supercoding_day4_homework.service.ElectronicStoreItemService;
 import com.github.supercoding_day4_homework.web.dto.items.BuyOrder;
 import com.github.supercoding_day4_homework.web.dto.items.Item;
 import com.github.supercoding_day4_homework.web.dto.items.ItemBody;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,25 +14,14 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api")
-@Slf4j
+@RequiredArgsConstructor
 public class ElectronicStoreController {
 
-  //spring 내장 함수 logback
-//  private final Logger logger = LoggerFactory.getLogger(this.getClass());
-  private ElectronicStoreItemService electronicStoreItemService;
-
-  public ElectronicStoreController(ElectronicStoreItemService electronicStoreItemService) {
-    this.electronicStoreItemService = electronicStoreItemService;
-  }
+  private final ElectronicStoreItemService electronicStoreItemService;
 
   @GetMapping("/items")
   public List<Item> findAllItem(){
-//    logger.info("GET /items 요청이 들어왔습니다.");
-    log.info("GET /items 요청이 들어왔습니다.");
-    List<Item> items = electronicStoreItemService.findAllItem();
-//    logger.info("GET /items 응답 : " + items);
-    log.info("GET /items 응답 : " + items);
-    return items;
+    return electronicStoreItemService.findAllItem();
   }
 
   @PostMapping("/items")

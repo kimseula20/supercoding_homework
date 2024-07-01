@@ -1,5 +1,6 @@
 package com.github.supercoding_day4_homework.repository.items;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -11,16 +12,19 @@ import java.util.List;
 @Repository
 public class ElectronicStoreItemJdbcDao implements ElectronicStoreItemRepository {
 
-  private JdbcTemplate jdbcTemplate;
+  private final JdbcTemplate jdbcTemplate;
 
   static RowMapper<ItemEntity> itemEntityRowMapper = (((rs, rowNum) ->
-      new ItemEntity(
-          rs.getInt("id"),
-          rs.getNString("name"),
-          rs.getNString("type"),
-          rs.getInt("price"),
-          rs.getNString("cpu"),
-          rs.getNString("capacity"))));
+      new ItemEntity.ItemEntityBuilder()
+          .id(rs.getInt("id"))
+          .name(rs.getNString("name"))
+          .type(rs.getNString("type"))
+          .storeId(rs.getInt("store_id"))
+          .stock(rs.getInt("stock"))
+          .cpu(rs.getNString("cpu"))
+          .price(rs.getInt("price"))
+          .capacity(rs.getNString("capacity"))
+          .build()));
 
   public ElectronicStoreItemJdbcDao(@Qualifier("jdbcTemplate1") JdbcTemplate jdbcTemplate) {
     this.jdbcTemplate = jdbcTemplate;

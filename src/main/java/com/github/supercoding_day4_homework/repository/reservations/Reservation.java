@@ -1,7 +1,14 @@
 package com.github.supercoding_day4_homework.repository.reservations;
 
+import lombok.*;
+
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@EqualsAndHashCode(of = "reservationId")
+@Builder
 public class Reservation {
   private Integer reservationId;
   private Integer passengerId;
@@ -14,83 +21,5 @@ public class Reservation {
     this.airlineTicketId = airlineTicketId;
     this.reservationStatus = "대기";
     this.reserveAt = LocalDateTime.now();
-  }
-
-  public Reservation(Integer reservationId, Integer passengerId, Integer airlineTicketId, String reservationStatus, LocalDateTime reserveAt) {
-    this.reservationId = reservationId;
-    this.passengerId = passengerId;
-    this.airlineTicketId = airlineTicketId;
-    this.reservationStatus = reservationStatus;
-    this.reserveAt = reserveAt;
-  }
-
-  public Integer getReservationId() {
-    return reservationId;
-  }
-
-  public void setReservationId(Integer reservationId) {
-    this.reservationId = reservationId;
-  }
-
-  public Integer getPassengerId() {
-    return passengerId;
-  }
-
-  public void setPassengerId(Integer passengerId) {
-    this.passengerId = passengerId;
-  }
-
-  public Integer getAirlineTicketId() {
-    return airlineTicketId;
-  }
-
-  public void setAirlineTicketId(Integer airlineTicketId) {
-    this.airlineTicketId = airlineTicketId;
-  }
-
-  public String getReservationStatus() {
-    return reservationStatus;
-  }
-
-  public void setReservationStatus(String reservationStatus) {
-    this.reservationStatus = reservationStatus;
-  }
-
-  public LocalDateTime getReserveAt() {
-    return reserveAt;
-  }
-
-  public void setReserveAt(LocalDateTime reserveAt) {
-    this.reserveAt = reserveAt;
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (!(o instanceof Reservation)) {
-      return false;
-    }
-
-    Reservation that = (Reservation) o;
-
-    return reservationId.equals(that.reservationId);
-  }
-
-  @Override
-  public int hashCode() {
-    return reservationId.hashCode();
-  }
-
-  @Override
-  public String toString() {
-    return "Reservation{" +
-        "reservationId=" + reservationId +
-        ", passengerId=" + passengerId +
-        ", airlineTicketId=" + airlineTicketId +
-        ", reservationStatus='" + reservationStatus + '\'' +
-        ", reserveAt=" + reserveAt +
-        '}';
   }
 }
