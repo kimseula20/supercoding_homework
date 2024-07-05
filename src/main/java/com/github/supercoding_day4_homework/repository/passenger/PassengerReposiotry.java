@@ -1,5 +1,8 @@
 package com.github.supercoding_day4_homework.repository.passenger;
 
+
+import java.util.Optional;
+
 public interface PassengerReposiotry {
-  Passenger findPassengerByUserId(Integer userId);
+  Optional<Passenger> findPassengerByUserId(Integer userId);
 }
